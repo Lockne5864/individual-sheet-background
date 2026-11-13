@@ -1,0 +1,16 @@
+{
+  "id": "individual-sheet-background",
+  "type": "module",
+  "title": "Individual Sheet Background",
+  "description": "Personalize each D&D 5e character sheet background with independent image, zoom, position, and gradient settings.",
+  "version": "0.5.4",
+  "compatibility": {
+    "minimum": "14"
+  },
+  "esmodules": [
+    "scripts/main.js"
+  ],
+  "styles": [
+    "styles/main.css"
+  ]
+}

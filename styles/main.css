@@ -1,0 +1,97 @@
+/*
+ * Individual Sheet Background
+ * Render one non-interactive, continuous image without adding DOM nodes.
+ */
+
+.dnd5e2.sheet.actor.character.isb-custom-background .window-content {
+    position: relative;
+    isolation: isolate;
+}
+
+/* The D&D 5e system uses ::before for a second decorative image.
+   Disable it only when this actor has a verified custom image. */
+.dnd5e2.sheet.actor.character.isb-custom-background:not(.minimized)
+.window-content::before {
+    content: none !important;
+}
+
+/* Paint our single illustration behind native sheet controls. */
+.dnd5e2.sheet.actor.character.isb-custom-background:not(.minimized)
+.window-content::after {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 360px;
+    z-index: -1;
+    pointer-events: none;
+    border-radius: 5px 5px 0 0;
+    background-image: var(--isb-image);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: var(--isb-x, 50%) var(--isb-y, 50%);
+    transform: scale(var(--isb-scale, 1));
+    transform-origin: var(--isb-x, 50%) var(--isb-y, 50%);
+    /* Constrain transformed art to the original image viewport.
+       Avoid overflow rules on .window-content: they can break sheet UI. */
+    clip-path: inset(
+        var(--isb-clip-top, 0%)
+        var(--isb-clip-right, 0%)
+        var(--isb-clip-bottom, 0%)
+        var(--isb-clip-left, 0%)
+    );
+    -webkit-mask-image: linear-gradient(
+        to bottom,
+        #000 0%,
+        #000 calc(100% - var(--isb-gradient, 60%)),
+        transparent 100%
+    );
+    mask-image: linear-gradient(
+        to bottom,
+        #000 0%,
+        #000 calc(100% - var(--isb-gradient, 60%)),
+        transparent 100%
+    );
+}
+
+/* Hide only the native header illustration, never its controls. */
+.dnd5e2.sheet.actor.character.isb-custom-background .sheet-header {
+    background-image: none !important;
+    background-color: transparent !important;
+}
+
+.dnd5e2.sheet.actor.character.isb-custom-background .sheet-header::before,
+.dnd5e2.sheet.actor.character.isb-custom-background .sheet-header::after {
+    background-image: none !important;
+}
+
+/* No positioning or z-index overrides on native character controls. */
+
+.isb-settings {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 4px 0;
+}
+
+.isb-settings .isb-control {
+    display: grid;
+    grid-template-columns: minmax(120px, 1fr) minmax(120px, 1.2fr) 48px;
+    align-items: center;
+    gap: 12px;
+}
+
+.isb-settings input[type="range"] {
+    width: 100%;
+    margin: 0;
+}
+
+.isb-settings output {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+.isb-settings .hint {
+    margin: 4px 0 0;
+    font-size: 12px;
+    opacity: 0.75;
+}

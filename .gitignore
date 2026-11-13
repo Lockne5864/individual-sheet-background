@@ -1,0 +1,19 @@
+# Editor and local environment
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Node.js build artifacts (if introduced later)
+node_modules/
+dist/
+coverage/
+*.log
+
+# Local release archives
+*.zip
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
